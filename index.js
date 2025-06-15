@@ -1,16 +1,59 @@
 import createCharacterCard from "./components/CharacterCard/CharacterCard.js";
+import SearchBar from "./components/SearchBar/SearchBar.js";
+import NavButton from "./components/NavButton/NavButton.js";
+import NavPagination from "./components/NavPagination/NavPagination.js";
+
+
+function onSearchSubmit(event) {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  searchQuery = formData.get("query").trim();
+  currentPage = 1;
+  fetchCharacters();
+}
+
+function onPrevClick() {
+  if (currentPage > 1) {
+    currentPage--;
+    fetchCharacters();
+  }
+}
+
+function onNextClick() {
+  if (currentPage < maxPage) {
+    currentPage++;
+    fetchCharacters();
+  }
+}
+
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const searchBarContainer = document.querySelector(
   '[data-js="search-bar-container"]'
 );
-const searchBar = document.querySelector('[data-js="search-bar"]');
 const navigation = document.querySelector('[data-js="navigation"]');
-const prevButton = document.querySelector('[data-js="button-prev"]');
-const nextButton = document.querySelector('[data-js="button-next"]');
-const pagination = document.querySelector('[data-js="pagination"]');
 
-// States
+searchBarContainer.innerHTML = "";
+navigation.innerHTML = "";
+
+const searchBar = SearchBar({ onSubmit: onSearchSubmit });
+const prevButton = NavButton({
+  text: "previous",
+  className: "button--prev",
+  onClick: onPrevClick,
+});
+const nextButton = NavButton({
+  text: "next",
+  className: "button--next",
+  onClick: onNextClick,
+});
+const pagination = NavPagination();
+
+
+searchBarContainer.appendChild(searchBar);
+navigation.append(prevButton, pagination, nextButton);
+
+
 let maxPage = 1;
 let currentPage = 1;
 let searchQuery = "";
@@ -18,7 +61,6 @@ let searchQuery = "";
 const baseApiUrl = "https://rickandmortyapi.com/api/character";
 
 async function fetchCharacters(url) {
-  
   cardContainer.innerHTML = "";
   url = `${baseApiUrl}/?page=${currentPage}`;
 
@@ -44,29 +86,10 @@ async function fetchCharacters(url) {
   });
 }
 
-prevButton.addEventListener("click", () => {
-  if (currentPage > 1) {
-    currentPage--;
-    fetchCharacters();
-  }
-});
+prevButton.addEventListener("click", onPrevClick)
 
-nextButton.addEventListener("click", () => {
-  if (currentPage < maxPage) {
-    currentPage++;
-    fetchCharacters();
-  }
-});
+nextButton.addEventListener("click", onNextClick)
 
-searchBar.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  const formData = new FormData(event.target);
-  searchQuery = formData.get("query").trim();
-  console.log(searchQuery);
-  currentPage = 1;
-
-  fetchCharacters();
-});
+searchBar.addEventListener("submit", onSearchSubmit);
 
 fetchCharacters();
