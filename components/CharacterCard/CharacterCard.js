@@ -1,7 +1,7 @@
 export default function createCharacterCard(characterData) {
   const newCharacterCard = document.createElement("li");
-  newCharacterCard.classList.add("card-container");
-  newCharacterCard.setAttribute("data-js", "card-container");
+  newCharacterCard.classList.add("card");
+  newCharacterCard.setAttribute("data-js", "card");
 
   newCharacterCard.innerHTML = `
           <div class="card__image-container">
