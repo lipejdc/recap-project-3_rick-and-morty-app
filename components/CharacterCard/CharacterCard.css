@@ -9,14 +9,13 @@
 .card {
   width: 90%;
   max-width: 18rem;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.15);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   background-color: var(--color-secondary);
-  transition: transform 0.3s ease;
-
+  transition: transform 0.4s ease-in-out;
 }
 
 .card__info {
@@ -38,5 +37,5 @@ li {
 }
 
 .card:hover {
-  transform: scale(1.1);
+  transform: translateY(-10px) rotate(1deg);
 }
