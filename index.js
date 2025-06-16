@@ -75,13 +75,18 @@ async function fetchCharacters(url) {
     }
 
     const data = await response.json();
-
-    if (!data.results || !data.info) {
-      throw new Error("Unexpected API response format.");
-    }
-
     const characters = data.results;
     console.log(characters);
+    console.log(data.results);
+    console.log(data.results.length);
+
+    if (data.results.length === 0) {
+      cardContainer.innerHTML = `<p class="no-results">No characters found matching your search.</p>`;
+      pagination.textContent = `0 / 0`;
+      prevButton.disabled = true;
+      nextButton.disabled = true;
+      return;
+    }
 
     maxPage = data.info.pages;
     pagination.textContent = `${currentPage} / ${maxPage}`;
