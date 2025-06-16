@@ -10,24 +10,30 @@
 }
 
 :root {
-  --color-primary: rgb(51, 51, 51);
-  --color-secondary: #f6f6f6;
-  --font-family: system-ui;
+  --color-bg: #0d1117	;
+  --color-primary: #58a6ff;
+  --color-secondary: #1f2833;
+  --color-muted: #c5c6c7;
+  --color-text: #f8f8f8;
+  --color-accent: #6bb7da;
+  --color-accent-hover: #519ec7;
+  --font-family: 'Roboto', sans-serif;
 }
 
 body {
   font-family: var(--font-family);
   color: var(--color-primary);
-  padding: 20px;
+  padding: 2rem;
+  background-color: var(--color-bg);
 }
 
 main {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
 }
 
 .title {
-  padding: 10px 0;
+  padding: 1rem 0;
   text-align: center;
 }
